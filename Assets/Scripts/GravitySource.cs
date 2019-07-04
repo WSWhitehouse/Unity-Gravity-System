@@ -70,7 +70,7 @@ public class GravitySource : MonoBehaviour
     private void OnTriggerEnter(Collider c)
     {
         var rb = c.GetComponent<Rigidbody>();
-        if (rb == null || _objectsInRange.Contains(rb) || !rb.useGravity) return;
+        if (rb == null || _objectsInRange.Contains(rb)) return;
 
         _objectsInRange.Add(rb);
 
@@ -95,7 +95,7 @@ public class GravitySource : MonoBehaviour
     private void FixedUpdate()
     {
         // Iterate over each object within range of our gravity
-        for (var i = 0; _objectsInRange != null && i < _objectsInRange.Count; ++i)
+        for (int i = 0; _objectsInRange != null && i < _objectsInRange.Count; ++i)
         {
             if (_objectsInRange[i] == null || !_objectsInRange[i].useGravity)
                 continue;
