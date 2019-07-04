@@ -17,7 +17,7 @@ public class GravitySource : MonoBehaviour
 
     private List<Rigidbody> objectsInRange = new List<Rigidbody>();
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         if (Camera.current == null)
             return;
@@ -27,17 +27,15 @@ public class GravitySource : MonoBehaviour
         for (var i = 0; gravityColliders != null && i < gravityColliders.Length; ++i)
         {
             var col = gravityColliders[i];
-
-            Gizmos.DrawLine(col.transform.position, transform.up * Radius);
-            //var raycastFrom = col.transform.position + transform.up; // * 1000.0f;
-            //var raycastDir = (col.transform.position - raycastFrom).normalized;
-            //var ray = new Ray(raycastFrom, raycastDir);
-            /*if (col.Raycast(ray, out var hitInfo, 2000.0f))
+            var raycastFrom = col.transform.position + transform.up; // * 1000.0f;
+            var raycastDir = (col.transform.position - raycastFrom).normalized;
+            var ray = new Ray(raycastFrom, raycastDir);
+            if (col.Raycast(ray, out var hitInfo, 2000.0f))
             {
                 Gizmos.DrawLine(hitInfo.point, hitInfo.point + hitInfo.normal * Radius);
-            }*/
+            }
         }
-    }
+    }*/
 
     private void Awake()
     {
