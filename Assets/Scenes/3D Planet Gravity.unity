@@ -755,10 +755,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8fa5b195a5475d85c7c4b99296e323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gravity: 9.8
-  Radius: 10
-  gravityColliders:
-  - {fileID: 763681103}
+  gravity: 9.8
+  radius: 10
+  enableDebug: 1
 --- !u!135 &763681103
 SphereCollider:
   m_ObjectHideFlags: 0
