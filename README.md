@@ -1,6 +1,6 @@
 # PlanetGravity
  
- Planet Gravity - Local gravity for planets and platforms, like Super Mario Galaxy. Now with 2D version!
+ Planet Gravity - Local customizable gravity for planets and platforms, like Super Mario Galaxy. Now with 2D version!
  
  [![Image](https://i.gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca.gif)](https://gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca)
  
