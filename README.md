@@ -28,6 +28,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 [![Image](https://i.gyazo.com/9edb23a6623827479b3f0fdce03a5410.png)](https://gyazo.com/9edb23a6623827479b3f0fdce03a5410)
 
+The `Gravity` field is how strong the gravity is on this planet, making it negative will push items away. The `Radius` field is to check for items on `Awake()` (note: the radius in the gravity source is the same radius of the sphere collider). The `Gravity Colliders` array needs to be occupied with all the trigger colliders that will be used for gravity (note: gravity will always go to the centre of the collider).
+
 4. Add `GravityItem` script to the player or an item (anything you want to be affected by gravity).
 5. Make sure a collider and rigidbody is applied to the item.
 
