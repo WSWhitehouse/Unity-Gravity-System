@@ -30,29 +30,20 @@ public class GravitySource : MonoBehaviour
         for (int i = 0; _gravityColliders != null && i < _gravityColliders.Length; ++i)
         {
             var col = _gravityColliders[i];
-            var raycastFrom = col.transform.position + transform.up * 1000.0f;
-            var raycastDir = (col.transform.position - raycastFrom).normalized;
-            var ray = new Ray(raycastFrom, raycastDir);
-            if (col.Raycast(ray, out var hitInfo, 2000.0f))
-            {
-                Gizmos.DrawLine(hitInfo.point, hitInfo.point + hitInfo.normal * (-radius * 2));
-            }
-            
-            raycastFrom = col.transform.position + transform.right * 1000.0f;
-            raycastDir = (col.transform.position - raycastFrom).normalized;
-            ray = new Ray(raycastFrom, raycastDir);
-            if (col.Raycast(ray, out var secondHitInfo, 2000.0f))
-            {
-                Gizmos.DrawLine(secondHitInfo.point, secondHitInfo.point + secondHitInfo.normal * (-radius * 2));
-            }
-            
-            raycastFrom = col.transform.position + transform.forward * 1000.0f;
-            raycastDir = (col.transform.position - raycastFrom).normalized;
-            ray = new Ray(raycastFrom, raycastDir);
-            if (col.Raycast(ray, out var thirdHitInfo, 2000.0f))
-            {
-                Gizmos.DrawLine(thirdHitInfo.point, thirdHitInfo.point + thirdHitInfo.normal * (-radius * 2));
-            }
+            DrawLine(col, transform.up);
+            DrawLine(col, transform.right);
+            DrawLine(col, transform.forward);
+        }
+    }
+
+    private void DrawLine(Collider collider, Vector3 dir)
+    {
+        var raycastFrom = collider.transform.position + dir * 1000.0f;
+        var raycastDir = (collider.transform.position - raycastFrom).normalized;
+        var ray = new Ray(raycastFrom, raycastDir);
+        if (collider.Raycast(ray, out var hitInfo, 2000.0f))
+        {
+            Gizmos.DrawLine(hitInfo.point, hitInfo.point + hitInfo.normal * (-radius * 2));
         }
     }
 
