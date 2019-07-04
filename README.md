@@ -37,7 +37,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors & Contributors
 
-- **David Evans** - *Initial work* - [Phosphoer](https://github.com/phosphoer) ([Original Code](https://gist.github.com/phosphoer/a283cdbeca5d2160d5eed318d0362826))
+- **David Evans** - [*Initial work*](https://gist.github.com/phosphoer/a283cdbeca5d2160d5eed318d0362826) - [Phosphoer](https://github.com/phosphoer)
 - **William Whitehouse** - *Examples, install instructions, bug fixes, code improvements/additions & 2D version* - [DoctorWolfy121](https://github.com/DoctorWolfy121)
 
 ## Acknowledgments
