@@ -36,7 +36,7 @@ There are currently no known issues, if you find one please open a new issue.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/DoctorWolfy121/PlanetGravity/tags). 
 
 ## Authors & Contributors
 
