@@ -16,7 +16,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Read [INSTALLING.md] for installing instructions.
+Read [INSTALLING.md](https://github.com/DoctorWolfy121/PlanetGravity/blob/master/INSTALLING.md) for installing instructions.
 
 ## Known Issues
 There are currently no known issues, if you find one please open a new issue.
