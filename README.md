@@ -40,6 +40,10 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 - **David Evans** - *Initial work* - [Phosphoer](https://github.com/phosphoer) ([Original Code](https://gist.github.com/phosphoer/a283cdbeca5d2160d5eed318d0362826))
 - **William Whitehouse** - *Examples, install instructions, bug fixes, code improvements/additions & 2D version* - [DoctorWolfy121](https://github.com/DoctorWolfy121)
 
+## Acknowledgments
+
+- [**Bayat Games**](https://assetstore.unity.com/publishers/26641) - [*Free 2D Game Assets used for 2D example*](https://assetstore.unity.com/packages/2d/environments/free-platform-game-assets-85838)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
