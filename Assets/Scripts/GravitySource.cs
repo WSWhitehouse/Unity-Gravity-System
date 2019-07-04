@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Serialization;
 
 public class GravitySource : MonoBehaviour
 {
@@ -10,46 +9,62 @@ public class GravitySource : MonoBehaviour
     [Tooltip("The maximum distance from the surface of the gravity source that is still affected by gravity")]
     public float radius = 5.0f;
 
+    [SerializeField, Space(5), Tooltip("Enable Debug rays and lines to help visualise the gravity.")]
+    private bool enableDebug;
+
     private Collider[] _gravityColliders;
 
     private const float MaxRaycastDistance = 100.0f;
 
     private List<Rigidbody> _objectsInRange = new List<Rigidbody>();
 
-    /*private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
+        if (!enableDebug) return;
+
         if (Camera.current == null)
             return;
 
         // Visualize gravity radius 
-        Gizmos.color = Color.blue;
-        for (var i = 0; gravityColliders != null && i < gravityColliders.Length; ++i)
+        Gizmos.color = Color.magenta;
+        for (int i = 0; _gravityColliders != null && i < _gravityColliders.Length; ++i)
         {
-            var col = gravityColliders[i];
-            var raycastFrom = col.transform.position + transform.up; // * 1000.0f;
+            var col = _gravityColliders[i];
+            var raycastFrom = col.transform.position + transform.up * 1000.0f;
             var raycastDir = (col.transform.position - raycastFrom).normalized;
             var ray = new Ray(raycastFrom, raycastDir);
             if (col.Raycast(ray, out var hitInfo, 2000.0f))
             {
-                Gizmos.DrawLine(hitInfo.point, hitInfo.point + hitInfo.normal * Radius);
+                Gizmos.DrawLine(hitInfo.point, hitInfo.point + hitInfo.normal * (-radius * 2));
+            }
+            
+            raycastFrom = col.transform.position + transform.right * 1000.0f;
+            raycastDir = (col.transform.position - raycastFrom).normalized;
+            ray = new Ray(raycastFrom, raycastDir);
+            if (col.Raycast(ray, out var secondHitInfo, 2000.0f))
+            {
+                Gizmos.DrawLine(secondHitInfo.point, secondHitInfo.point + secondHitInfo.normal * (-radius * 2));
+            }
+            
+            raycastFrom = col.transform.position + transform.forward * 1000.0f;
+            raycastDir = (col.transform.position - raycastFrom).normalized;
+            ray = new Ray(raycastFrom, raycastDir);
+            if (col.Raycast(ray, out var thirdHitInfo, 2000.0f))
+            {
+                Gizmos.DrawLine(thirdHitInfo.point, thirdHitInfo.point + thirdHitInfo.normal * (-radius * 2));
             }
         }
-    }*/
+    }
 
     private void Awake()
     {
         _gravityColliders = GetComponents<Collider>();
 
-        if (!_gravityColliders[0].isTrigger)
-        {
-            Debug.LogWarning("GravitySource collider is not a trigger, will not be functional.");
-        }
-
         if (_gravityColliders == null || _gravityColliders.Length == 0)
         {
             Debug.LogWarning("GravitySource has no colliders, will not be functional.");
         }
-        
+
         SetItemsInRadius();
     }
 
@@ -108,16 +123,22 @@ public class GravitySource : MonoBehaviour
             var closestHit = Mathf.Infinity;
             foreach (var gravityCollider in _gravityColliders)
             {
-                // Step 1, raycast in general direction of collider to find a normal of the surface
+                // Skips this collider if it isn't a trigger
+                if (!gravityCollider.isTrigger) continue;
+
+                // Raycast in general direction of collider to find a normal of the surface
                 var raycastTo = gravityCollider.transform.position;
                 var toCollider = (raycastTo - rb.transform.position).normalized;
                 var gravityRay = new Ray(rb.transform.position, toCollider);
                 if (gravityCollider.Raycast(gravityRay, out var hitInfo, MaxRaycastDistance))
                 {
-                    // Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.red);
-                    // Debug.DrawRay(hitInfo.point, hitInfo.normal * 2, Color.red);
+                    if (enableDebug)
+                    {
+                        Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.red);
+                        Debug.DrawRay(hitInfo.point, hitInfo.normal * 2, Color.red);
+                    }
 
-                    // Now, set our new ray to point in the opposite direction of this normal, to raycast 'down' towards the closest point on the plane formed by the normal
+                    // Set our new ray to point in the opposite direction of this normal, to raycast 'down' towards the closest point on the plane formed by the normal
                     gravityRay = new Ray(rb.transform.position, -hitInfo.normal);
 
                     // Update gravity direction guess if this was a closer hit
@@ -132,8 +153,12 @@ public class GravitySource : MonoBehaviour
                 // Raycast a second time onto the collider with the refined 'down' direction
                 if (gravityCollider.Raycast(gravityRay, out hitInfo, MaxRaycastDistance))
                 {
-                    // Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.green);
-                    // Debug.DrawRay(hitInfo.point, hitInfo.normal * 2, Color.green);
+                    if (enableDebug)
+                    {
+                        Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.green);
+                        Debug.DrawRay(hitInfo.point, hitInfo.normal * 2, Color.green);
+                    }
+
                     var dist = Vector3.Distance(hitInfo.point, gravityRay.origin);
                     if (dist < closestHit)
                     {
@@ -143,7 +168,10 @@ public class GravitySource : MonoBehaviour
                 }
             }
 
-            // Debug.DrawRay(rb.transform.position, gravityDir * 2, Color.blue);
+            if (enableDebug)
+            {
+                Debug.DrawRay(rb.transform.position, gravityDir * 2, Color.blue);
+            }
 
             // Now apply gravity if we are the closest source (only 1 source at a time applies gravity)
             var item = rb.GetComponent<GravityItem>();
