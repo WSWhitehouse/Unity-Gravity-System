@@ -757,7 +757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 9.8
   radius: 10
-  enableDebug: 1
+  enableDebug: 0
 --- !u!135 &763681103
 SphereCollider:
   m_ObjectHideFlags: 0
