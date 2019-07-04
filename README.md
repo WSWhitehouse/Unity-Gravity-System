@@ -42,7 +42,7 @@ The `Gravity` field is how strong the gravity is on this planet, making it negat
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
-## Authors
+## Authors & Contributors
 
 - **David Evans** - *Initial work* - [Phosphoer](https://github.com/phosphoer)
 - **William Whitehouse** - *Example, install instructions & code improvements/additions* - [DoctorWolfy121](https://github.com/DoctorWolfy121)
