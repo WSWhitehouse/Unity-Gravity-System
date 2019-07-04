@@ -16,22 +16,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-1. Set Physics gravity to 0, otherwise the planet gravity will fight with global gravity.
-
-[![Global Gravity Turned Off](https://i.gyazo.com/7f819af070ec7c4bccfac03a2524bd1e.png)](https://gyazo.com/7f819af070ec7c4bccfac03a2524bd1e)
-
-2. Add `GravitySource` script to your planet/ground, along with a trigger collider
-
-3. Everything inside the trigger collider will be affected by this planets gravity. Splitting out the components can help: 
-
-[![Image](https://i.gyazo.com/7b751229a03c2c25c5315da0268d12cd.png)](https://gyazo.com/7b751229a03c2c25c5315da0268d12cd)
-
-[![Image](https://i.gyazo.com/9edb23a6623827479b3f0fdce03a5410.png)](https://gyazo.com/9edb23a6623827479b3f0fdce03a5410)
-
-The `Gravity` field is how strong the gravity is on this planet, making it negative will push items away. The `Radius` field is to check for items on `Awake()` (note: the radius in the gravity source is the same radius of the sphere collider). The `Gravity Colliders` array needs to be occupied with all the trigger colliders that will be used for gravity (note: gravity will always go to the centre of the collider).
-
-4. Add `GravityItem` script to the player or an item (anything you want to be affected by gravity).
-5. Make sure a collider and rigidbody is applied to the item.
+Read [INSTALLING.md] for installing instructions.
 
 ## Known Issues
 There are currently no known issues, if you find one please open a new issue.
@@ -51,7 +36,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors & Contributors
 
 - **David Evans** - *Initial work* - [Phosphoer](https://github.com/phosphoer) ([Original Code](https://gist.github.com/phosphoer/a283cdbeca5d2160d5eed318d0362826))
-- **William Whitehouse** - *Example, install instructions & code improvements/additions* - [DoctorWolfy121](https://github.com/DoctorWolfy121)
+- **William Whitehouse** - *Example, install instructions, bug fixes & code improvements/additions* - [DoctorWolfy121](https://github.com/DoctorWolfy121)
 
 ## License
 
