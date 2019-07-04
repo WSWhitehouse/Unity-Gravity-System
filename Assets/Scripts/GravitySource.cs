@@ -1,21 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 public class GravitySource : MonoBehaviour
 {
     [Tooltip("How much gravity force to apply to objects within range")]
-    public float Gravity = 9.8f;
+    public float gravity = 9.8f;
 
     [Tooltip("The maximum distance from the surface of the gravity source that is still affected by gravity")]
-    public float Radius = 5.0f;
+    public float radius = 5.0f;
 
-    [SerializeField, Tooltip("List of colliders to use as gravity sources, will be raycasted against")]
-    private Collider[] gravityColliders;
+    private Collider[] _gravityColliders;
 
-    // How far should raycasts go, make this the maximum distance you need gravity to affect objects from
     private const float MaxRaycastDistance = 100.0f;
 
-    private List<Rigidbody> objectsInRange = new List<Rigidbody>();
+    private List<Rigidbody> _objectsInRange = new List<Rigidbody>();
 
     /*private void OnDrawGizmos()
     {
@@ -39,13 +38,24 @@ public class GravitySource : MonoBehaviour
 
     private void Awake()
     {
-        if (gravityColliders == null || gravityColliders.Length == 0)
+        _gravityColliders = GetComponents<Collider>();
+
+        if (!_gravityColliders[0].isTrigger)
+        {
+            Debug.LogWarning("GravitySource collider is not a trigger, will not be functional.");
+        }
+
+        if (_gravityColliders == null || _gravityColliders.Length == 0)
         {
             Debug.LogWarning("GravitySource has no colliders, will not be functional.");
         }
+        
+        SetItemsInRadius();
+    }
 
-        // Getting colliders inside the gravity radius
-        Collider[] overlapColliders = Physics.OverlapSphere(transform.position, Radius);
+    private void SetItemsInRadius()
+    {
+        var overlapColliders = Physics.OverlapSphere(transform.position, radius);
 
         foreach (var c in overlapColliders)
         {
@@ -60,9 +70,9 @@ public class GravitySource : MonoBehaviour
     private void OnTriggerEnter(Collider c)
     {
         var rb = c.GetComponent<Rigidbody>();
-        if (rb == null || objectsInRange.Contains(rb)) return;
+        if (rb == null || _objectsInRange.Contains(rb) || !rb.useGravity) return;
 
-        objectsInRange.Add(rb);
+        _objectsInRange.Add(rb);
 
         var item = rb.GetComponent<GravityItem>() ?? rb.gameObject.AddComponent<GravityItem>();
         ++item.ActiveFieldCount;
@@ -72,9 +82,9 @@ public class GravitySource : MonoBehaviour
     private void OnTriggerExit(Collider c)
     {
         var rb = c.GetComponent<Rigidbody>();
-        if (rb == null || !objectsInRange.Contains(rb)) return;
+        if (rb == null || !_objectsInRange.Contains(rb)) return;
 
-        objectsInRange.Remove(rb);
+        _objectsInRange.Remove(rb);
 
         var item = rb.GetComponent<GravityItem>() ?? rb.gameObject.AddComponent<GravityItem>();
         --item.ActiveFieldCount;
@@ -85,18 +95,18 @@ public class GravitySource : MonoBehaviour
     private void FixedUpdate()
     {
         // Iterate over each object within range of our gravity
-        for (var i = 0; objectsInRange != null && i < objectsInRange.Count; ++i)
+        for (var i = 0; _objectsInRange != null && i < _objectsInRange.Count; ++i)
         {
-            if (objectsInRange[i] == null || !objectsInRange[i].useGravity)
+            if (_objectsInRange[i] == null || !_objectsInRange[i].useGravity)
                 continue;
 
             // Calculate initial gravity direction, just towards the gravity source transform
-            var rb = objectsInRange[i];
+            var rb = _objectsInRange[i];
             var gravityDir = (transform.position - rb.transform.position).normalized;
 
             // Find out which of our child colliders is closest
             var closestHit = Mathf.Infinity;
-            foreach (var gravityCollider in gravityColliders)
+            foreach (var gravityCollider in _gravityColliders)
             {
                 // Step 1, raycast in general direction of collider to find a normal of the surface
                 var raycastTo = gravityCollider.transform.position;
@@ -145,8 +155,8 @@ public class GravitySource : MonoBehaviour
                 item.Up = Vector3.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
 
                 // Calculate force
-                var force = gravityDir.normalized * Gravity;
-                var distRatio = Mathf.Clamp01(closestHit / Radius);
+                var force = gravityDir.normalized * gravity;
+                var distRatio = Mathf.Clamp01(closestHit / radius);
 
                 // Gravity gets scaled up with distance because games
                 force *= 1.0f + distRatio;
