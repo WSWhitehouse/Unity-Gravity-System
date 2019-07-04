@@ -8,17 +8,17 @@
 
 ### 3D
 
-Set 3D global gravity to 0.
+*Optional - If you leave Global Gravity on, objects will still react as normal as well with the gravity sources, however you might want to make global gravity weaker or gravity sources stronger* - Set 3D global gravity to 0.
 
-- To change 3D physics, go to ProjectSettings -> Physics
+  - To change 3D physics, go to ProjectSettings -> Physics
 
   [![3D Gravity](https://i.gyazo.com/7f819af070ec7c4bccfac03a2524bd1e.png)](https://gyazo.com/7f819af070ec7c4bccfac03a2524bd1e)
   
 ### 2D  
 
-Set 2D global gravity to 0.
+*Optional - If you leave Global Gravity on, objects will still react as normal as well with the gravity sources, however you might want to make global gravity weaker or gravity sources stronger* - Set 2D global gravity to 0.
   
-- To change 2D physics, go to ProjectSettings -> Physics 2D
+  - To change 2D physics, go to ProjectSettings -> Physics 2D
 
   [![2D Gravity](https://i.gyazo.com/7b173d32f32b0fa52a0a8a3ed9d1ee80.png)](https://gyazo.com/7b173d32f32b0fa52a0a8a3ed9d1ee80)
     
