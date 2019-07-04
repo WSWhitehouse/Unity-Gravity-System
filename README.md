@@ -45,7 +45,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 - **David Evans** - *Initial work* - [Phosphoer](https://github.com/phosphoer)
-- **William Whitehouse** - *Example and install instructions* - [DoctorWolfy121](https://github.com/DoctorWolfy121)
+- **William Whitehouse** - *Example, install instructions & code improvements/additions* - [DoctorWolfy121](https://github.com/DoctorWolfy121)
 
 ## License
 
