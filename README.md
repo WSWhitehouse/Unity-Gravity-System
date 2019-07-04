@@ -24,7 +24,7 @@ Read [INSTALLING.md](https://github.com/DoctorWolfy121/PlanetGravity/blob/master
 There are currently no known issues, if you find one please open a new issue.
 
 ## To Do
- - <s>Create a 2D version</s>
+ - <s>Create a 2D version</s> - *Done*
 
 ## Built With
 
