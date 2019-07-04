@@ -1,6 +1,6 @@
-# PlanetGravity
+# Unity Custom Gravity
  
- Planet Gravity - Local customizable gravity for planets and platforms, like Super Mario Galaxy. Now with 2D version!
+ Unity Custom Gravity - Local customizable gravity for planets and platforms, like Super Mario Galaxy. Now with 2D version!
  
  [![Image](https://i.gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca.gif)](https://gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca)
  
@@ -9,7 +9,7 @@
  [![Image](https://i.gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8.gif)](https://gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8)
 
 ## Releases
-- [**v1.0.0**](https://github.com/DoctorWolfy121/PlanetGravity/releases/tag/v1.0.0) - First Release
+- [**v1.0.0**](https://github.com/DoctorWolfy121/UnityCustomGravity/releases/tag/v1.0.0) - First Release
 
 ## Getting Started
 
@@ -21,7 +21,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Read [INSTALLING.md](https://github.com/DoctorWolfy121/PlanetGravity/blob/master/INSTALLING.md) for installing instructions.
+Read [INSTALLING.md](https://github.com/DoctorWolfy121/UnityCustomGravity/blob/master/INSTALLING.md) for installing instructions.
 
 ## Known Issues
 There are currently no known issues, if you find one please open a new issue.
@@ -36,7 +36,7 @@ There are currently no known issues, if you find one please open a new issue.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/DoctorWolfy121/PlanetGravity/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/DoctorWolfy121/UnityCustomGravity/tags). 
 
 ## Authors & Contributors
 
