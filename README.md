@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-- Unity 2018+ - *Should be compatible with older versions*
+- Unity 2018+ *Should be compatible with older versions*
 
 ### Installing
 
@@ -32,6 +32,12 @@ The `Gravity` field is how strong the gravity is on this planet, making it negat
 
 4. Add `GravityItem` script to the player or an item (anything you want to be affected by gravity).
 5. Make sure a collider and rigidbody is applied to the item.
+
+## Known Issues
+There are currently no known issues, if you find one please open a new issue.
+
+## To Do
+ - Create a 2D version
 
 ## Built With
 
