@@ -8,6 +8,9 @@
  
  [![Image](https://i.gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8.gif)](https://gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8)
 
+## Releases
+- [**v1.0.0**](https://github.com/DoctorWolfy121/PlanetGravity/releases/tag/v1.0.0) - First Release
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
