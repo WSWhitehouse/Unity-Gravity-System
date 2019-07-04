@@ -5,6 +5,8 @@
  [![Image](https://i.gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca.gif)](https://gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca)
  
  [![Image](https://i.gyazo.com/eff8ec9c7a81d9058af8bcce01471892.gif)](https://gyazo.com/eff8ec9c7a81d9058af8bcce01471892)
+ 
+ [![Image](https://i.gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8.gif)](https://gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8)
 
 ## Getting Started
 
@@ -22,7 +24,7 @@ Read [INSTALLING.md](https://github.com/DoctorWolfy121/PlanetGravity/blob/master
 There are currently no known issues, if you find one please open a new issue.
 
 ## To Do
- - Create a 2D version
+ - <s>Create a 2D version</s>
 
 ## Built With
 
@@ -36,7 +38,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors & Contributors
 
 - **David Evans** - *Initial work* - [Phosphoer](https://github.com/phosphoer) ([Original Code](https://gist.github.com/phosphoer/a283cdbeca5d2160d5eed318d0362826))
-- **William Whitehouse** - *Examples, install instructions, bug fixes, code improvements/additions & 2D version (comming soon)* - [DoctorWolfy121](https://github.com/DoctorWolfy121)
+- **William Whitehouse** - *Examples, install instructions, bug fixes, code improvements/additions & 2D version* - [DoctorWolfy121](https://github.com/DoctorWolfy121)
 
 ## License
 
