@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
-public class GravitySource2D : MonoBehaviour
+public class GravitySource2D : MonoBehaviour, IGravitySource2D
 {
-    [Tooltip("How much gravity force to apply to objects within range")]
-    public float gravity = 9.8f;
+    [FormerlySerializedAs("gravity"), SerializeField,
+     Tooltip("How much gravity force to apply to objects within range")]
+    private float gravityStrength = 9.8f;
 
     [Tooltip("The maximum distance from the surface of the gravity source that is still affected by gravity")]
     public float radius = 5.0f;
@@ -12,11 +14,13 @@ public class GravitySource2D : MonoBehaviour
     [SerializeField, Space(5), Tooltip("Enable Debug rays and lines to help visualise the gravity.")]
     private bool enableDebug;
 
-    private Collider2D[] _gravityColliders;
+    public float GravityStrength => gravityStrength;
+
+    public Collider2D[] GravityColliders { get; private set; }
 
     private const float MaxRaycastDistance = 100.0f;
 
-    private List<GravityItem2D> _itemsInRange = new List<GravityItem2D>();
+    public List<GravityItem2D> ItemsInRange { get; } = new List<GravityItem2D>();
 
     private void OnDrawGizmos()
     {
@@ -27,9 +31,9 @@ public class GravitySource2D : MonoBehaviour
 
         // Visualize gravity radius 
         Gizmos.color = Color.magenta;
-        for (int i = 0; _gravityColliders != null && i < _gravityColliders.Length; ++i)
+        for (int i = 0; GravityColliders != null && i < GravityColliders.Length; ++i)
         {
-            var col = _gravityColliders[i];
+            var col = GravityColliders[i];
             DrawLine(col, transform.up);
             DrawLine(col, transform.right);
         }
@@ -45,9 +49,9 @@ public class GravitySource2D : MonoBehaviour
 
     private void Awake()
     {
-        _gravityColliders = GetComponents<Collider2D>();
+        GravityColliders = GetComponents<Collider2D>();
 
-        if (_gravityColliders == null || _gravityColliders.Length == 0)
+        if (GravityColliders == null || GravityColliders.Length == 0)
         {
             Debug.LogWarning("GravitySource has no colliders, will not be functional.");
         }
@@ -56,9 +60,9 @@ public class GravitySource2D : MonoBehaviour
     private void OnTriggerStay2D(Collider2D c)
     {
         var item = c.GetComponent<GravityItem2D>();
-        if (item == null || _itemsInRange.Contains(item)) return;
+        if (item == null || ItemsInRange.Contains(item)) return;
 
-        _itemsInRange.Add(item);
+        ItemsInRange.Add(item);
 
         ++item.ActiveFieldCount;
         item.CurrentGravitySource = this;
@@ -67,9 +71,9 @@ public class GravitySource2D : MonoBehaviour
     private void OnTriggerExit2D(Collider2D c)
     {
         var item = c.GetComponent<GravityItem2D>();
-        if (item == null || !_itemsInRange.Contains(item)) return;
+        if (item == null || !ItemsInRange.Contains(item)) return;
 
-        _itemsInRange.Remove(item);
+        ItemsInRange.Remove(item);
 
         --item.ActiveFieldCount;
         if (item.CurrentGravitySource == this)
@@ -82,18 +86,18 @@ public class GravitySource2D : MonoBehaviour
     private void FixedUpdate()
     {
         // Iterate over each object within range of our gravity
-        for (int i = 0; _itemsInRange != null && i < _itemsInRange.Count; ++i)
+        for (int i = 0; ItemsInRange != null && i < ItemsInRange.Count; ++i)
         {
-            if (_itemsInRange[i] == null || _itemsInRange[i].Rigidbody2D.gravityScale <= 0)
+            if (ItemsInRange[i] == null || ItemsInRange[i].Rigidbody2D.gravityScale <= 0)
                 continue;
 
             // Calculate initial gravity direction, just towards the gravity source transform
-            var item = _itemsInRange[i];
+            var item = ItemsInRange[i];
             var gravityDir = (transform.position - item.transform.position).normalized;
 
             // Find out which of our child colliders is closest
             var closestHit = Mathf.Infinity;
-            foreach (var gravityCollider in _gravityColliders)
+            foreach (var gravityCollider in GravityColliders)
             {
                 // Skips this collider if it isn't a trigger
                 if (!gravityCollider.isTrigger) continue;
@@ -163,7 +167,7 @@ public class GravitySource2D : MonoBehaviour
                 item.Up = Vector2.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
 
                 // Calculate force
-                var force = gravityDir.normalized * gravity;
+                var force = gravityDir.normalized * GravityStrength;
                 var distRatio = Mathf.Clamp01(closestHit / radius);
 
                 // Gravity gets scaled up with distance because games
