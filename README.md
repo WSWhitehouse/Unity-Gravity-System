@@ -1,6 +1,6 @@
-# Unity Custom Gravity
+# Unity Gravity System
  
- Unity Custom Gravity - Local customizable gravity for planets and platforms, like Super Mario Galaxy. Now with 2D version!
+ Unity Gravity System - Local customizable gravity for planets and platforms, like Super Mario Galaxy. **Now with 2D version & Directional Gravity!**
  
  [![Image](https://i.gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca.gif)](https://gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca)
  
@@ -9,8 +9,8 @@
  [![Image](https://i.gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8.gif)](https://gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8)
 
 ## Releases
-- [**v1.1.0**](https://github.com/DoctorWolfy121/UnityCustomGravity/releases/tag/v1.1.0) - Major Bug Fixes
-- [**v1.0.0**](https://github.com/DoctorWolfy121/UnityCustomGravity/releases/tag/v1.0.0) - First Release
+- [**v1.1.0**](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases/tag/v1.1.0) - Major Bug Fixes
+- [**v1.0.0**](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases/tag/v1.0.0) - First Release
 
 ## Getting Started
 
@@ -22,7 +22,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Read [INSTALLING.md](https://github.com/DoctorWolfy121/UnityCustomGravity/blob/master/INSTALLING.md) for installing instructions.
+Read [INSTALLING.md](INSTALLING.md) for installing instructions.
 
 ## Known Issues
 1. <s>If there are more than one gravity source at a time, the item might remove a current gravity source and not be affected.</s> - *Fixed in v1.1.0*
@@ -39,7 +39,7 @@ Read [INSTALLING.md](https://github.com/DoctorWolfy121/UnityCustomGravity/blob/m
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/DoctorWolfy121/UnityCustomGravity/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/DoctorWolfy121/Unity-Gravity-System/tags). 
 
 ## Authors & Contributors
 
