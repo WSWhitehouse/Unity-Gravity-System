@@ -1,147 +1,150 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("Gravity System/Gravity Sources/Directional Gravity")]
-public class DirectionalGravity : MonoBehaviour, IGravitySource
+namespace DoctorWolfy121.GravitySystem
 {
-    [SerializeField, Tooltip("The direction of gravity.")]
-    private Vector3 gravityDirection = Vector3.down;
-
-    [SerializeField] private float gravityStrength = 9.8f;
-
-    [SerializeField, Space(5)] private bool enableDebug;
-
-    public float GravityStrength => gravityStrength;
-
-    public List<GravityItem> ItemsInRange { get; } = new List<GravityItem>();
-
-    public Collider[] GravityColliders { get; private set; }
-
-    private const float MaxRaycastDistance = 100.0f;
-
-    private void Awake()
+    [AddComponentMenu("Gravity System/Gravity Sources/Directional Gravity")]
+    public class DirectionalGravity : MonoBehaviour, IGravitySource
     {
-        GravityColliders = GetComponents<Collider>();
+        [SerializeField, Tooltip("The direction of gravity.")]
+        private Vector3 gravityDirection = Vector3.down;
 
-        if (GravityColliders == null || GravityColliders.Length == 0)
+        [SerializeField] private float gravityStrength = 9.8f;
+
+        [SerializeField, Space(5)] private bool enableDebug;
+
+        public float GravityStrength => gravityStrength;
+
+        public List<GravityItem> ItemsInRange { get; } = new List<GravityItem>();
+
+        public Collider[] GravityColliders { get; private set; }
+
+        private const float MaxRaycastDistance = 100.0f;
+
+        private void Awake()
         {
-            Debug.LogWarning("GravitySource has no colliders, will not be functional.");
-        }
-    }
+            GravityColliders = GetComponents<Collider>();
 
-    private void OnTriggerStay(Collider c)
-    {
-        var item = c.GetComponent<GravityItem>();
-        if (item == null || ItemsInRange.Contains(item)) return;
-
-        ItemsInRange.Add(item);
-
-        ++item.ActiveFieldCount;
-        item.CurrentGravitySource.Add(this);
-    }
-
-    private void OnTriggerExit(Collider c)
-    {
-        var item = c.GetComponent<GravityItem>();
-        if (item == null || !ItemsInRange.Contains(item)) return;
-
-        ItemsInRange.Remove(item);
-
-        --item.ActiveFieldCount;
-        if (item.CurrentGravitySource.Contains(this))
-        {
-            item.CurrentDistance = Mathf.Infinity;
-            item.CurrentGravitySource.Remove(this);
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        // Iterate over each object within range of our gravity
-        for (int i = 0; ItemsInRange != null && i < ItemsInRange.Count; ++i)
-        {
-            if (ItemsInRange[i] == null || !ItemsInRange[i].Rigidbody.useGravity)
-                continue;
-
-            // Calculate initial gravity direction, just towards the gravity source transform
-            var item = ItemsInRange[i];
-            var gravityDir = gravityDirection;
-
-            // Find out which of our child colliders is closest
-            var closestHit = Mathf.Infinity;
-            foreach (var gravityCollider in GravityColliders)
+            if (GravityColliders == null || GravityColliders.Length == 0)
             {
-                // Skips this collider if it isn't a trigger
-                if (!gravityCollider.isTrigger) continue;
-
-                // Raycast in general direction of collider to find a normal of the surface
-                var raycastTo = gravityCollider.transform.position;
-                var toCollider = (raycastTo - item.transform.position).normalized;
-                var gravityRay = new Ray(item.transform.position, toCollider);
-                if (gravityCollider.Raycast(gravityRay, out var hitInfo, MaxRaycastDistance))
-                {
-                    if (enableDebug)
-                    {
-                        Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.red);
-                        Debug.DrawRay(hitInfo.point, hitInfo.normal * 2, Color.red);
-                    }
-
-                    // Set our new ray to point in the opposite direction of this normal, to raycast 'down' towards the closest point on the plane formed by the normal
-                    gravityRay = new Ray(item.transform.position, -hitInfo.normal);
-
-                    // Update gravity direction guess if this was a closer hit
-                    var dist = Vector3.Distance(hitInfo.point, gravityRay.origin);
-                    if (dist < closestHit)
-                    {
-                        gravityDir = -hitInfo.normal;
-                        closestHit = dist;
-                    }
-                }
-
-                // Raycast a second time onto the collider with the refined 'down' direction
-                if (gravityCollider.Raycast(gravityRay, out hitInfo, MaxRaycastDistance))
-                {
-                    if (enableDebug)
-                    {
-                        Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.green);
-                        Debug.DrawRay(hitInfo.point, hitInfo.normal * 2, Color.green);
-                    }
-
-                    var dist = Vector3.Distance(hitInfo.point, gravityRay.origin);
-                    if (dist < closestHit)
-                    {
-                        gravityDir = -hitInfo.normal;
-                        closestHit = dist;
-                    }
-                }
+                Debug.LogWarning("GravitySource has no colliders, will not be functional.");
             }
+        }
 
-            if (enableDebug)
+        private void OnTriggerStay(Collider c)
+        {
+            var item = c.GetComponent<GravityItem>();
+            if (item == null || ItemsInRange.Contains(item)) return;
+
+            ItemsInRange.Add(item);
+
+            ++item.ActiveFieldCount;
+            item.CurrentGravitySource.Add(this);
+        }
+
+        private void OnTriggerExit(Collider c)
+        {
+            var item = c.GetComponent<GravityItem>();
+            if (item == null || !ItemsInRange.Contains(item)) return;
+
+            ItemsInRange.Remove(item);
+
+            --item.ActiveFieldCount;
+            if (item.CurrentGravitySource.Contains(this))
             {
-                Debug.DrawRay(item.transform.position, gravityDir * 2, Color.blue);
+                item.CurrentDistance = Mathf.Infinity;
+                item.CurrentGravitySource.Remove(this);
             }
+        }
 
-            // Now apply gravity if we are the closest source (only 1 source at a time applies gravity)
-            if (item.CurrentGravitySource.Contains(this) || closestHit < item.CurrentDistance)
+        private void FixedUpdate()
+        {
+            // Iterate over each object within range of our gravity
+            for (int i = 0; ItemsInRange != null && i < ItemsInRange.Count; ++i)
             {
-                // Update tracking vars 
-                item.CurrentDistance = closestHit;
-                if (!item.CurrentGravitySource.Contains(this))
+                if (ItemsInRange[i] == null || !ItemsInRange[i].Rigidbody.useGravity)
+                    continue;
+
+                // Calculate initial gravity direction, just towards the gravity source transform
+                var item = ItemsInRange[i];
+                var gravityDir = gravityDirection;
+
+                // Find out which of our child colliders is closest
+                var closestHit = Mathf.Infinity;
+                foreach (var gravityCollider in GravityColliders)
                 {
-                    item.CurrentGravitySource.Add(this);
+                    // Skips this collider if it isn't a trigger
+                    if (!gravityCollider.isTrigger) continue;
+
+                    // Raycast in general direction of collider to find a normal of the surface
+                    var raycastTo = gravityCollider.transform.position;
+                    var toCollider = (raycastTo - item.transform.position).normalized;
+                    var gravityRay = new Ray(item.transform.position, toCollider);
+                    if (gravityCollider.Raycast(gravityRay, out var hitInfo, MaxRaycastDistance))
+                    {
+                        if (enableDebug)
+                        {
+                            Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.red);
+                            Debug.DrawRay(hitInfo.point, hitInfo.normal * 2, Color.red);
+                        }
+
+                        // Set our new ray to point in the opposite direction of this normal, to raycast 'down' towards the closest point on the plane formed by the normal
+                        gravityRay = new Ray(item.transform.position, -hitInfo.normal);
+
+                        // Update gravity direction guess if this was a closer hit
+                        var dist = Vector3.Distance(hitInfo.point, gravityRay.origin);
+                        if (dist < closestHit)
+                        {
+                            gravityDir = -hitInfo.normal;
+                            closestHit = dist;
+                        }
+                    }
+
+                    // Raycast a second time onto the collider with the refined 'down' direction
+                    if (gravityCollider.Raycast(gravityRay, out hitInfo, MaxRaycastDistance))
+                    {
+                        if (enableDebug)
+                        {
+                            Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.green);
+                            Debug.DrawRay(hitInfo.point, hitInfo.normal * 2, Color.green);
+                        }
+
+                        var dist = Vector3.Distance(hitInfo.point, gravityRay.origin);
+                        if (dist < closestHit)
+                        {
+                            gravityDir = -hitInfo.normal;
+                            closestHit = dist;
+                        }
+                    }
                 }
 
-                item.Up = Vector3.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
+                if (enableDebug)
+                {
+                    Debug.DrawRay(item.transform.position, gravityDir * 2, Color.blue);
+                }
 
-                // Calculate force
-                var force = gravityDir.normalized * GravityStrength;
+                // Now apply gravity if we are the closest source (only 1 source at a time applies gravity)
+                if (item.CurrentGravitySource.Contains(this) || closestHit < item.CurrentDistance)
+                {
+                    // Update tracking vars 
+                    item.CurrentDistance = closestHit;
+                    if (!item.CurrentGravitySource.Contains(this))
+                    {
+                        item.CurrentGravitySource.Add(this);
+                    }
 
-                var distRatio =
-                    Mathf.Clamp01(closestHit / Vector3.Distance(transform.position, item.transform.position));
+                    item.Up = Vector3.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
 
-                // Gravity gets scaled up with distance because games
-                force *= 1.0f + distRatio;
-                item.Rigidbody.AddForce(force * item.Rigidbody.mass);
+                    // Calculate force
+                    var force = gravityDir.normalized * GravityStrength;
+
+                    var distRatio =
+                        Mathf.Clamp01(closestHit / Vector3.Distance(transform.position, item.transform.position));
+
+                    // Gravity gets scaled up with distance because games
+                    force *= 1.0f + distRatio;
+                    item.Rigidbody.AddForce(force * item.Rigidbody.mass);
+                }
             }
         }
     }

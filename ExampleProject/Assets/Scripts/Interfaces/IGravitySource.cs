@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGravitySource
+namespace DoctorWolfy121.GravitySystem
 {
-    float GravityStrength { get; }
-    List<GravityItem> ItemsInRange { get; }
-    Collider[] GravityColliders { get; }
+    public interface IGravitySource
+    {
+        float GravityStrength { get; }
+        List<GravityItem> ItemsInRange { get; }
+        Collider[] GravityColliders { get; }
+    }
 }
