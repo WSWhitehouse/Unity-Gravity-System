@@ -1,7 +1,7 @@
 # Installing
 
 ## Downloading
-1. Download the latest Unity Package. Check the [releases on this repository](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases) to find latest release.
+1. Download the latest Unity Package. Check the [releases on this repository](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases) to find the version you want, or [click here for the latest release](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases/latest).
 2. Extract the Unity Package in your project.
 
 ## Setting up your project
