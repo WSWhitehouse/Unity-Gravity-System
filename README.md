@@ -26,11 +26,11 @@ Read [INSTALLING.md](INSTALLING.md) for installing instructions.
 ## Known Issues
 1. <s>If there are more than one gravity source at a time, the item might remove a current gravity source and not be affected.</s> - *Fixed in v1.1.0*
 2. <s>Change `OnTriggerEnter()` to `OnTriggerStay()` so it can update the gravity source.</s> - *Fixed in v1.1.0*
-3. Make the `CurrentGravitySource` a List so the item can be affected by multiple gravity sources at once, by calculating gravity strength and distance to gravity source.
+3. <s>Make the `CurrentGravitySource` a List so the item can be affected by multiple gravity sources at once, by calculating gravity strength and distance to gravity source.</s> - *Fixed in v2.0.0*
 
 ## To Do
  - <s>Create a 2D version</s> - *Done*
- - Allow Gravity Items to be affected by multiple gravity sources
+ - <s>Allow Gravity Items to be affected by multiple gravity sources</s> - *Completed in v2.0.0*
 
 ## Built With
 
