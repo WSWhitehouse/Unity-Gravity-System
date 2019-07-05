@@ -16,7 +16,7 @@ public class GravitySource : MonoBehaviour
 
     private const float MaxRaycastDistance = 100.0f;
 
-    private List<Rigidbody> _objectsInRange = new List<Rigidbody>();
+    private List<GravityItem> _itemsInRange = new List<GravityItem>();
 
     private void OnDrawGizmos()
     {
@@ -59,24 +59,22 @@ public class GravitySource : MonoBehaviour
 
     private void OnTriggerStay(Collider c)
     {
-        var rb = c.GetComponent<Rigidbody>();
-        if (rb == null || _objectsInRange.Contains(rb)) return;
+        var item = c.GetComponent<GravityItem>();
+        if (item == null || _itemsInRange.Contains(item)) return;
 
-        _objectsInRange.Add(rb);
+        _itemsInRange.Add(item);
 
-        var item = rb.GetComponent<GravityItem>() ?? rb.gameObject.AddComponent<GravityItem>();
         ++item.ActiveFieldCount;
         item.CurrentGravitySource = this;
     }
 
     private void OnTriggerExit(Collider c)
     {
-        var rb = c.GetComponent<Rigidbody>();
-        if (rb == null || !_objectsInRange.Contains(rb)) return;
+        var item = c.GetComponent<GravityItem>();
+        if (item == null || !_itemsInRange.Contains(item)) return;
 
-        _objectsInRange.Remove(rb);
+        _itemsInRange.Remove(item);
 
-        var item = rb.GetComponent<GravityItem>() ?? rb.gameObject.AddComponent<GravityItem>();
         --item.ActiveFieldCount;
         if (item.CurrentGravitySource == this)
         {
@@ -88,14 +86,14 @@ public class GravitySource : MonoBehaviour
     private void FixedUpdate()
     {
         // Iterate over each object within range of our gravity
-        for (int i = 0; _objectsInRange != null && i < _objectsInRange.Count; ++i)
+        for (int i = 0; _itemsInRange != null && i < _itemsInRange.Count; ++i)
         {
-            if (_objectsInRange[i] == null || !_objectsInRange[i].useGravity)
+            if (_itemsInRange[i] == null || !_itemsInRange[i].Rigidbody.useGravity)
                 continue;
 
             // Calculate initial gravity direction, just towards the gravity source transform
-            var rb = _objectsInRange[i];
-            var gravityDir = (transform.position - rb.transform.position).normalized;
+            var item = _itemsInRange[i];
+            var gravityDir = (transform.position - item.transform.position).normalized;
 
             // Find out which of our child colliders is closest
             var closestHit = Mathf.Infinity;
@@ -106,8 +104,8 @@ public class GravitySource : MonoBehaviour
 
                 // Raycast in general direction of collider to find a normal of the surface
                 var raycastTo = gravityCollider.transform.position;
-                var toCollider = (raycastTo - rb.transform.position).normalized;
-                var gravityRay = new Ray(rb.transform.position, toCollider);
+                var toCollider = (raycastTo - item.transform.position).normalized;
+                var gravityRay = new Ray(item.transform.position, toCollider);
                 if (gravityCollider.Raycast(gravityRay, out var hitInfo, MaxRaycastDistance))
                 {
                     if (enableDebug)
@@ -117,7 +115,7 @@ public class GravitySource : MonoBehaviour
                     }
 
                     // Set our new ray to point in the opposite direction of this normal, to raycast 'down' towards the closest point on the plane formed by the normal
-                    gravityRay = new Ray(rb.transform.position, -hitInfo.normal);
+                    gravityRay = new Ray(item.transform.position, -hitInfo.normal);
 
                     // Update gravity direction guess if this was a closer hit
                     var dist = Vector3.Distance(hitInfo.point, gravityRay.origin);
@@ -148,11 +146,10 @@ public class GravitySource : MonoBehaviour
 
             if (enableDebug)
             {
-                Debug.DrawRay(rb.transform.position, gravityDir * 2, Color.blue);
+                Debug.DrawRay(item.transform.position, gravityDir * 2, Color.blue);
             }
 
             // Now apply gravity if we are the closest source (only 1 source at a time applies gravity)
-            var item = rb.GetComponent<GravityItem>();
             if (item.CurrentGravitySource == this || closestHit < item.CurrentDistance)
             {
                 // Update tracking vars 
@@ -166,7 +163,7 @@ public class GravitySource : MonoBehaviour
 
                 // Gravity gets scaled up with distance because games
                 force *= 1.0f + distRatio;
-                rb.AddForce(force * rb.mass);
+                item.Rigidbody.AddForce(force * item.Rigidbody.mass);
             }
         }
     }

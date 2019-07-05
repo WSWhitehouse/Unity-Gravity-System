@@ -16,7 +16,7 @@ public class GravitySource2D : MonoBehaviour
 
     private const float MaxRaycastDistance = 100.0f;
 
-    private List<Rigidbody2D> _objectsInRange = new List<Rigidbody2D>();
+    private List<GravityItem2D> _itemsInRange = new List<GravityItem2D>();
 
     private void OnDrawGizmos()
     {
@@ -38,11 +38,7 @@ public class GravitySource2D : MonoBehaviour
     private void DrawLine(Collider2D collider, Vector3 dir)
     {
         var raycastFrom = collider.transform.position + dir * 1000.0f;
-        //Vector2 raycastFrom2D = raycastFrom;
         var raycastDir = (collider.transform.position - raycastFrom).normalized;
-        //var ray = new Ray(raycastFrom, raycastDir);
-        //RaycastHit2D[] hitInfo = new RaycastHit2D[0];
-        //collider.Raycast(raycastFrom2D, hitInfo, 2000.0f);
 
         Gizmos.DrawLine(raycastFrom, raycastDir * (-radius * 2));
     }
@@ -59,24 +55,22 @@ public class GravitySource2D : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D c)
     {
-        var rb = c.GetComponent<Rigidbody2D>();
-        if (rb == null || _objectsInRange.Contains(rb)) return;
+        var item = c.GetComponent<GravityItem2D>();
+        if (item == null || _itemsInRange.Contains(item)) return;
 
-        _objectsInRange.Add(rb);
+        _itemsInRange.Add(item);
 
-        var item = rb.GetComponent<GravityItem2D>() ?? rb.gameObject.AddComponent<GravityItem2D>();
         ++item.ActiveFieldCount;
         item.CurrentGravitySource = this;
     }
 
     private void OnTriggerExit2D(Collider2D c)
     {
-        var rb = c.GetComponent<Rigidbody2D>();
-        if (rb == null || !_objectsInRange.Contains(rb)) return;
+        var item = c.GetComponent<GravityItem2D>();
+        if (item == null || !_itemsInRange.Contains(item)) return;
 
-        _objectsInRange.Remove(rb);
+        _itemsInRange.Remove(item);
 
-        var item = rb.GetComponent<GravityItem2D>() ?? rb.gameObject.AddComponent<GravityItem2D>();
         --item.ActiveFieldCount;
         if (item.CurrentGravitySource == this)
         {
@@ -88,14 +82,14 @@ public class GravitySource2D : MonoBehaviour
     private void FixedUpdate()
     {
         // Iterate over each object within range of our gravity
-        for (int i = 0; _objectsInRange != null && i < _objectsInRange.Count; ++i)
+        for (int i = 0; _itemsInRange != null && i < _itemsInRange.Count; ++i)
         {
-            if (_objectsInRange[i] == null || _objectsInRange[i].gravityScale <= 0)
+            if (_itemsInRange[i] == null || _itemsInRange[i].Rigidbody2D.gravityScale <= 0)
                 continue;
 
             // Calculate initial gravity direction, just towards the gravity source transform
-            var rb = _objectsInRange[i];
-            var gravityDir = (transform.position - rb.transform.position).normalized;
+            var item = _itemsInRange[i];
+            var gravityDir = (transform.position - item.transform.position).normalized;
 
             // Find out which of our child colliders is closest
             var closestHit = Mathf.Infinity;
@@ -106,8 +100,8 @@ public class GravitySource2D : MonoBehaviour
 
                 // Raycast in general direction of collider to find a normal of the surface
                 var raycastTo = gravityCollider.transform.position;
-                var toCollider = (raycastTo - rb.transform.position).normalized;
-                var gravityRay = new Ray(rb.transform.position, toCollider);
+                var toCollider = (raycastTo - item.transform.position).normalized;
+                var gravityRay = new Ray(item.transform.position, toCollider);
 
                 RaycastHit2D[] raycastHit = new RaycastHit2D[0];
                 var raycastInt = gravityCollider.Raycast(toCollider, raycastHit, MaxRaycastDistance);
@@ -117,7 +111,7 @@ public class GravitySource2D : MonoBehaviour
                     {
                         Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.red);
                         Debug.DrawRay(raycastHit[0].point, raycastHit[0].normal * 2, Color.red);
-                        gravityRay = new Ray(rb.transform.position, -raycastHit[0].normal);
+                        gravityRay = new Ray(item.transform.position, -raycastHit[0].normal);
                     }
 
                     // Set our new ray to point in the opposite direction of this normal, to raycast 'down' towards the closest point on the plane formed by the normal
@@ -157,11 +151,10 @@ public class GravitySource2D : MonoBehaviour
 
             if (enableDebug)
             {
-                Debug.DrawRay(rb.transform.position, gravityDir * 2, Color.blue);
+                Debug.DrawRay(item.transform.position, gravityDir * 2, Color.blue);
             }
 
             // Now apply gravity if we are the closest source (only 1 source at a time applies gravity)
-            var item = rb.GetComponent<GravityItem2D>();
             if (item.CurrentGravitySource == this || closestHit < item.CurrentDistance)
             {
                 // Update tracking vars 
@@ -175,7 +168,7 @@ public class GravitySource2D : MonoBehaviour
 
                 // Gravity gets scaled up with distance because games
                 force *= 1.0f + distRatio;
-                rb.AddForce(force * rb.mass);
+                item.Rigidbody2D.AddForce(force * item.Rigidbody2D.mass);
             }
         }
     }
