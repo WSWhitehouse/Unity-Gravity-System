@@ -9,8 +9,7 @@
  [![Image](https://i.gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8.gif)](https://gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8)
 
 ## Releases
-- [**v1.1.0**](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases/tag/v1.1.0) - Major Bug Fixes
-- [**v1.0.0**](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases/tag/v1.0.0) - First Release
+For releases check the [releases on this repository](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases), for the latest release [click here](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases/latest)!
 
 ## Getting Started
 
