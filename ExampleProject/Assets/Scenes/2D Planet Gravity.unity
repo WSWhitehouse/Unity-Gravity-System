@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cab4c5a50664a649f1639d1ec3906c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 9.8
+  gravityStrength: 9.8
   radius: 5
   enableDebug: 1
 --- !u!1 &367176082
@@ -218,7 +218,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!50 &367176084
 Rigidbody2D:
   serializedVersion: 4
@@ -326,7 +325,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &464719866
 GameObject:
@@ -459,7 +458,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!50 &670629398
 Rigidbody2D:
   serializedVersion: 4
@@ -567,7 +565,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &676923979
 GameObject:
@@ -604,7 +602,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!50 &676923981
 Rigidbody2D:
   serializedVersion: 4
@@ -712,7 +709,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &708618738
 GameObject:
@@ -749,7 +746,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!50 &708618740
 Rigidbody2D:
   serializedVersion: 4
@@ -857,7 +853,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1042216296
 GameObject:
@@ -894,7 +890,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!50 &1042216298
 Rigidbody2D:
   serializedVersion: 4
@@ -1002,7 +997,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1596358189
 GameObject:
@@ -1039,7 +1034,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!50 &1596358191
 Rigidbody2D:
   serializedVersion: 4
@@ -1147,7 +1141,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1736949282
 GameObject:
@@ -1270,7 +1264,7 @@ Transform:
   - {fileID: 464719867}
   - {fileID: 146155151}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1984790722
 GameObject:
@@ -1307,7 +1301,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!50 &1984790724
 Rigidbody2D:
   serializedVersion: 4
@@ -1415,7 +1408,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2099935310
 GameObject:
@@ -1452,7 +1445,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!50 &2099935312
 Rigidbody2D:
   serializedVersion: 4
@@ -1560,7 +1552,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2147014143
 GameObject:

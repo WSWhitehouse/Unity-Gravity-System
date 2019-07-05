@@ -65,7 +65,7 @@ public class GravitySource2D : MonoBehaviour, IGravitySource2D
         ItemsInRange.Add(item);
 
         ++item.ActiveFieldCount;
-        item.CurrentGravitySource = this;
+        item.CurrentGravitySource.Add(this);
     }
 
     private void OnTriggerExit2D(Collider2D c)
@@ -76,10 +76,10 @@ public class GravitySource2D : MonoBehaviour, IGravitySource2D
         ItemsInRange.Remove(item);
 
         --item.ActiveFieldCount;
-        if (item.CurrentGravitySource == this)
+        if (item.CurrentGravitySource.Contains(this))
         {
             item.CurrentDistance = Mathf.Infinity;
-            item.CurrentGravitySource = null;
+            item.CurrentGravitySource.Remove(this);
         }
     }
 
@@ -158,11 +158,15 @@ public class GravitySource2D : MonoBehaviour, IGravitySource2D
             }
 
             // Now apply gravity if we are the closest source (only 1 source at a time applies gravity)
-            if (item.CurrentGravitySource == this || closestHit < item.CurrentDistance)
+            if (item.CurrentGravitySource.Contains(this) || closestHit < item.CurrentDistance)
             {
                 // Update tracking vars 
                 item.CurrentDistance = closestHit;
-                item.CurrentGravitySource = this;
+                if (!item.CurrentGravitySource.Contains(this))
+                {
+                    item.CurrentGravitySource.Add(this);
+                }
+
                 item.Up = Vector2.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
 
                 // Calculate force

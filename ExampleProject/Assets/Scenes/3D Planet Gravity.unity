@@ -156,7 +156,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1, z: 0}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!54 &409992392
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -281,7 +280,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1, z: 0}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!54 &433303506
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -406,7 +404,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1, z: 0}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!54 &638488155
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -622,7 +619,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1, z: 0}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!54 &746367918
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -755,7 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8fa5b195a5475d85c7c4b99296e323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 9.8
+  gravityStrength: 9.8
   radius: 10
   enableDebug: 0
 --- !u!135 &763681103
@@ -922,7 +918,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1, z: 0}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!54 &1264839396
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1047,7 +1042,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1, z: 0}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!54 &1712988690
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1172,7 +1166,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1, z: 0}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!54 &1777605253
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1388,7 +1381,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1, z: 0}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!54 &1934894277
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1513,7 +1505,6 @@ MonoBehaviour:
   Up: {x: 0, y: 1, z: 0}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
-  CurrentGravitySource: {fileID: 0}
 --- !u!54 &1960169926
 Rigidbody:
   m_ObjectHideFlags: 0

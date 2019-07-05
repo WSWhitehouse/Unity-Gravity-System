@@ -68,7 +68,7 @@ public class GravitySource : MonoBehaviour, IGravitySource
         ItemsInRange.Add(item);
 
         ++item.ActiveFieldCount;
-        item.CurrentGravitySource = this;
+        item.CurrentGravitySource.Add(this);
     }
 
     private void OnTriggerExit(Collider c)
@@ -79,10 +79,10 @@ public class GravitySource : MonoBehaviour, IGravitySource
         ItemsInRange.Remove(item);
 
         --item.ActiveFieldCount;
-        if (item.CurrentGravitySource == this)
+        if (item.CurrentGravitySource.Contains(this))
         {
             item.CurrentDistance = Mathf.Infinity;
-            item.CurrentGravitySource = null;
+            item.CurrentGravitySource.Remove(this);
         }
     }
 
@@ -153,11 +153,15 @@ public class GravitySource : MonoBehaviour, IGravitySource
             }
 
             // Now apply gravity if we are the closest source (only 1 source at a time applies gravity)
-            if (item.CurrentGravitySource == this || closestHit < item.CurrentDistance)
+            if (item.CurrentGravitySource.Contains(this) || closestHit < item.CurrentDistance)
             {
                 // Update tracking vars 
                 item.CurrentDistance = closestHit;
-                item.CurrentGravitySource = this;
+                if (!item.CurrentGravitySource.Contains(this))
+                {
+                    item.CurrentGravitySource.Add(this);
+                }
+
                 item.Up = Vector3.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
 
                 // Calculate force
