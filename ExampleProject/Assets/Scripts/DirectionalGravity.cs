@@ -1,20 +1,15 @@
-using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Serialization;
+using UnityEngine;
 
-[AddComponentMenu("Gravity System/Gravity Sources/Planet Gravity")]
-public class PlanetGravity : MonoBehaviour, IGravitySource
+[AddComponentMenu("Gravity System/Gravity Sources/Directional Gravity")]
+public class DirectionalGravity : MonoBehaviour, IGravitySource
 {
-    [FormerlySerializedAs("gravity")]
-    [SerializeField, Tooltip("How much gravity force to apply to objects within range")]
-    private float gravityStrength = 9.8f;
+    [SerializeField, Tooltip("The direction of gravity.")]
+    private Vector3 gravityDirection = Vector3.down;
 
-    public float radius = 5.0f;
+    [SerializeField] private float gravityStrength = 9.8f;
 
-    [SerializeField, Space(5), Tooltip("Enable Debug rays and lines to help visualise the gravity.")]
-    private bool enableDebug;
-
-    private const float MaxRaycastDistance = 100.0f;
+    [SerializeField, Space(5)] private bool enableDebug;
 
     public float GravityStrength => gravityStrength;
 
@@ -22,34 +17,7 @@ public class PlanetGravity : MonoBehaviour, IGravitySource
 
     public Collider[] GravityColliders { get; private set; }
 
-    private void OnDrawGizmos()
-    {
-        if (!enableDebug) return;
-
-        if (Camera.current == null)
-            return;
-
-        // Visualize gravity radius 
-        Gizmos.color = Color.magenta;
-        for (int i = 0; GravityColliders != null && i < GravityColliders.Length; ++i)
-        {
-            var col = GravityColliders[i];
-            DrawLine(col, transform.up);
-            DrawLine(col, transform.right);
-            DrawLine(col, transform.forward);
-        }
-    }
-
-    private void DrawLine(Collider collider, Vector3 dir)
-    {
-        var raycastFrom = collider.transform.position + dir * 1000.0f;
-        var raycastDir = (collider.transform.position - raycastFrom).normalized;
-        var ray = new Ray(raycastFrom, raycastDir);
-        if (collider.Raycast(ray, out var hitInfo, 2000.0f))
-        {
-            Gizmos.DrawLine(hitInfo.point, hitInfo.point + hitInfo.normal * (-radius * 2));
-        }
-    }
+    private const float MaxRaycastDistance = 100.0f;
 
     private void Awake()
     {
@@ -97,7 +65,7 @@ public class PlanetGravity : MonoBehaviour, IGravitySource
 
             // Calculate initial gravity direction, just towards the gravity source transform
             var item = ItemsInRange[i];
-            var gravityDir = (transform.position - item.transform.position).normalized;
+            var gravityDir = gravityDirection;
 
             // Find out which of our child colliders is closest
             var closestHit = Mathf.Infinity;
@@ -167,7 +135,9 @@ public class PlanetGravity : MonoBehaviour, IGravitySource
 
                 // Calculate force
                 var force = gravityDir.normalized * GravityStrength;
-                var distRatio = Mathf.Clamp01(closestHit / radius);
+
+                var distRatio =
+                    Mathf.Clamp01(closestHit / Vector3.Distance(transform.position, item.transform.position));
 
                 // Gravity gets scaled up with distance because games
                 force *= 1.0f + distRatio;

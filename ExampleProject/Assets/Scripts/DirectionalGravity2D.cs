@@ -1,59 +1,30 @@
-using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Serialization;
+using UnityEngine;
 
-[AddComponentMenu("Gravity System/Gravity Sources/Planet Gravity")]
-public class PlanetGravity : MonoBehaviour, IGravitySource
+[AddComponentMenu("Gravity System/Gravity Sources/Directional Gravity 2D")]
+public class DirectionalGravity2D : MonoBehaviour, IGravitySource2D
 {
-    [FormerlySerializedAs("gravity")]
-    [SerializeField, Tooltip("How much gravity force to apply to objects within range")]
-    private float gravityStrength = 9.8f;
+    [SerializeField, Tooltip("The direction of gravity.")]
+    private Vector3 gravityDirection = Vector3.down;
 
-    public float radius = 5.0f;
+    [SerializeField,
+     Tooltip("How much gravity force to apply to objects within range")]
+    private float gravityStrength = 9.8f;
 
     [SerializeField, Space(5), Tooltip("Enable Debug rays and lines to help visualise the gravity.")]
     private bool enableDebug;
 
-    private const float MaxRaycastDistance = 100.0f;
-
     public float GravityStrength => gravityStrength;
 
-    public List<GravityItem> ItemsInRange { get; } = new List<GravityItem>();
+    public Collider2D[] GravityColliders { get; private set; }
 
-    public Collider[] GravityColliders { get; private set; }
+    public List<GravityItem2D> ItemsInRange { get; } = new List<GravityItem2D>();
 
-    private void OnDrawGizmos()
-    {
-        if (!enableDebug) return;
-
-        if (Camera.current == null)
-            return;
-
-        // Visualize gravity radius 
-        Gizmos.color = Color.magenta;
-        for (int i = 0; GravityColliders != null && i < GravityColliders.Length; ++i)
-        {
-            var col = GravityColliders[i];
-            DrawLine(col, transform.up);
-            DrawLine(col, transform.right);
-            DrawLine(col, transform.forward);
-        }
-    }
-
-    private void DrawLine(Collider collider, Vector3 dir)
-    {
-        var raycastFrom = collider.transform.position + dir * 1000.0f;
-        var raycastDir = (collider.transform.position - raycastFrom).normalized;
-        var ray = new Ray(raycastFrom, raycastDir);
-        if (collider.Raycast(ray, out var hitInfo, 2000.0f))
-        {
-            Gizmos.DrawLine(hitInfo.point, hitInfo.point + hitInfo.normal * (-radius * 2));
-        }
-    }
+    private const float MaxRaycastDistance = 100.0f;
 
     private void Awake()
     {
-        GravityColliders = GetComponents<Collider>();
+        GravityColliders = GetComponents<Collider2D>();
 
         if (GravityColliders == null || GravityColliders.Length == 0)
         {
@@ -61,9 +32,9 @@ public class PlanetGravity : MonoBehaviour, IGravitySource
         }
     }
 
-    private void OnTriggerStay(Collider c)
+    private void OnTriggerStay2D(Collider2D c)
     {
-        var item = c.GetComponent<GravityItem>();
+        var item = c.GetComponent<GravityItem2D>();
         if (item == null || ItemsInRange.Contains(item)) return;
 
         ItemsInRange.Add(item);
@@ -72,9 +43,9 @@ public class PlanetGravity : MonoBehaviour, IGravitySource
         item.CurrentGravitySource.Add(this);
     }
 
-    private void OnTriggerExit(Collider c)
+    private void OnTriggerExit2D(Collider2D c)
     {
-        var item = c.GetComponent<GravityItem>();
+        var item = c.GetComponent<GravityItem2D>();
         if (item == null || !ItemsInRange.Contains(item)) return;
 
         ItemsInRange.Remove(item);
@@ -92,12 +63,12 @@ public class PlanetGravity : MonoBehaviour, IGravitySource
         // Iterate over each object within range of our gravity
         for (int i = 0; ItemsInRange != null && i < ItemsInRange.Count; ++i)
         {
-            if (ItemsInRange[i] == null || !ItemsInRange[i].Rigidbody.useGravity)
+            if (ItemsInRange[i] == null || ItemsInRange[i].Rigidbody2D.gravityScale <= 0)
                 continue;
 
             // Calculate initial gravity direction, just towards the gravity source transform
             var item = ItemsInRange[i];
-            var gravityDir = (transform.position - item.transform.position).normalized;
+            var gravityDir = gravityDirection;
 
             // Find out which of our child colliders is closest
             var closestHit = Mathf.Infinity;
@@ -110,40 +81,48 @@ public class PlanetGravity : MonoBehaviour, IGravitySource
                 var raycastTo = gravityCollider.transform.position;
                 var toCollider = (raycastTo - item.transform.position).normalized;
                 var gravityRay = new Ray(item.transform.position, toCollider);
-                if (gravityCollider.Raycast(gravityRay, out var hitInfo, MaxRaycastDistance))
+
+                RaycastHit2D[] raycastHit = new RaycastHit2D[0];
+                var raycastInt = gravityCollider.Raycast(toCollider, raycastHit, MaxRaycastDistance);
+                if (raycastInt > 0)
                 {
                     if (enableDebug)
                     {
                         Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.red);
-                        Debug.DrawRay(hitInfo.point, hitInfo.normal * 2, Color.red);
+                        Debug.DrawRay(raycastHit[0].point, raycastHit[0].normal * 2, Color.red);
+                        gravityRay = new Ray(item.transform.position, -raycastHit[0].normal);
                     }
 
                     // Set our new ray to point in the opposite direction of this normal, to raycast 'down' towards the closest point on the plane formed by the normal
-                    gravityRay = new Ray(item.transform.position, -hitInfo.normal);
 
                     // Update gravity direction guess if this was a closer hit
-                    var dist = Vector3.Distance(hitInfo.point, gravityRay.origin);
+                    var dist = Vector2.Distance(raycastHit[0].point, gravityRay.origin);
                     if (dist < closestHit)
                     {
-                        gravityDir = -hitInfo.normal;
+                        gravityDir = -raycastHit[0].normal;
                         closestHit = dist;
                     }
                 }
 
                 // Raycast a second time onto the collider with the refined 'down' direction
-                if (gravityCollider.Raycast(gravityRay, out hitInfo, MaxRaycastDistance))
+                if (raycastInt > 0)
                 {
-                    if (enableDebug)
-                    {
-                        Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.green);
-                        Debug.DrawRay(hitInfo.point, hitInfo.normal * 2, Color.green);
-                    }
+                    raycastInt = gravityCollider.Raycast(raycastHit[0].normal, raycastHit, MaxRaycastDistance);
 
-                    var dist = Vector3.Distance(hitInfo.point, gravityRay.origin);
-                    if (dist < closestHit)
+                    if (raycastInt > 0)
                     {
-                        gravityDir = -hitInfo.normal;
-                        closestHit = dist;
+                        if (enableDebug)
+                        {
+                            Debug.DrawRay(gravityRay.origin, gravityRay.direction * 2, Color.green);
+                            Debug.DrawRay(raycastHit[0].point, raycastHit[0].normal * 2, Color.green);
+                        }
+
+                        var dist = Vector2.Distance(raycastHit[0].point, gravityRay.origin);
+                        if (dist < closestHit)
+                        {
+                            gravityDir = -raycastHit[0].normal;
+                            closestHit = dist;
+                        }
                     }
                 }
             }
@@ -163,15 +142,16 @@ public class PlanetGravity : MonoBehaviour, IGravitySource
                     item.CurrentGravitySource.Add(this);
                 }
 
-                item.Up = Vector3.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
+                item.Up = Vector2.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
 
                 // Calculate force
                 var force = gravityDir.normalized * GravityStrength;
-                var distRatio = Mathf.Clamp01(closestHit / radius);
+                var distRatio =
+                    Mathf.Clamp01(closestHit / Vector2.Distance(transform.position, item.transform.position));
 
                 // Gravity gets scaled up with distance because games
                 force *= 1.0f + distRatio;
-                item.Rigidbody.AddForce(force * item.Rigidbody.mass);
+                item.Rigidbody2D.AddForce(force * item.Rigidbody2D.mass);
             }
         }
     }
