@@ -109,7 +109,7 @@ public class GravitySource2D : MonoBehaviour, IGravitySource2D
 
                 RaycastHit2D[] raycastHit = new RaycastHit2D[0];
                 var raycastInt = gravityCollider.Raycast(toCollider, raycastHit, MaxRaycastDistance);
-                if (raycastInt > 0) //Physics.Raycast(gravityRay, out var hitInfo, MaxRaycastDistance))
+                if (raycastInt > 0)
                 {
                     if (enableDebug)
                     {
@@ -119,7 +119,6 @@ public class GravitySource2D : MonoBehaviour, IGravitySource2D
                     }
 
                     // Set our new ray to point in the opposite direction of this normal, to raycast 'down' towards the closest point on the plane formed by the normal
-
 
                     // Update gravity direction guess if this was a closer hit
                     var dist = Vector2.Distance(raycastHit[0].point, gravityRay.origin);
@@ -135,7 +134,7 @@ public class GravitySource2D : MonoBehaviour, IGravitySource2D
                 {
                     raycastInt = gravityCollider.Raycast(raycastHit[0].normal, raycastHit, MaxRaycastDistance);
 
-                    if (raycastInt > 0) //Physics.Raycast(gravityRay, out hitInfo, MaxRaycastDistance))
+                    if (raycastInt > 0)
                     {
                         if (enableDebug)
                         {
