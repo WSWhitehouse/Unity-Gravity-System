@@ -5,7 +5,7 @@ using UnityEngine;
 public class DirectionalGravity2D : MonoBehaviour, IGravitySource2D
 {
     [SerializeField, Tooltip("The direction of gravity.")]
-    private Vector3 gravityDirection = Vector3.down;
+    private Vector2 gravityDirection = Vector2.down;
 
     [SerializeField,
      Tooltip("How much gravity force to apply to objects within range")]
