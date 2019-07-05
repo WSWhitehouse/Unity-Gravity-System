@@ -55,26 +55,9 @@ public class GravitySource2D : MonoBehaviour
         {
             Debug.LogWarning("GravitySource has no colliders, will not be functional.");
         }
-
-        SetItemsInRadius();
     }
 
-    private void SetItemsInRadius()
-    {
-        var overlapColliders = Physics2D.OverlapCircleAll(transform.position, radius);
-
-
-        foreach (var c in overlapColliders)
-        {
-            var component = c.GetComponent<GravityItem2D>();
-            if (component != null)
-            {
-                OnTriggerEnter2D(c);
-            }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D c)
+    private void OnTriggerStay2D(Collider2D c)
     {
         var rb = c.GetComponent<Rigidbody2D>();
         if (rb == null || _objectsInRange.Contains(rb)) return;
@@ -95,8 +78,11 @@ public class GravitySource2D : MonoBehaviour
 
         var item = rb.GetComponent<GravityItem2D>() ?? rb.gameObject.AddComponent<GravityItem2D>();
         --item.ActiveFieldCount;
-        item.CurrentDistance = Mathf.Infinity;
-        item.CurrentGravitySource = null;
+        if (item.CurrentGravitySource == this)
+        {
+            item.CurrentDistance = Mathf.Infinity;
+            item.CurrentGravitySource = null;
+        }
     }
 
     private void FixedUpdate()
