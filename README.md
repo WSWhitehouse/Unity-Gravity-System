@@ -31,6 +31,7 @@ Read [INSTALLING.md](INSTALLING.md) for installing instructions.
 
 ## To Do
  - <s>Create a 2D version</s> - *Done*
+ - Allow Gravity Items to be affected by multiple gravity sources
 
 ## Built With
 
