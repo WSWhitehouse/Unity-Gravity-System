@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[AddComponentMenu("Gravity System/Gravity Item 2D"),RequireComponent(typeof(Rigidbody2D))]
 public class GravityItem2D : MonoBehaviour
 {
     public Vector2 Up = Vector2.up;
