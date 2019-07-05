@@ -9,7 +9,7 @@
  [![Image](https://i.gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8.gif)](https://gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8)
 
 ## Releases
--[**v1.1.0**](https://github.com/DoctorWolfy121/UnityCustomGravity/releases/tag/v1.1.0) - Major Bug Fixes
+- [**v1.1.0**](https://github.com/DoctorWolfy121/UnityCustomGravity/releases/tag/v1.1.0) - Major Bug Fixes
 - [**v1.0.0**](https://github.com/DoctorWolfy121/UnityCustomGravity/releases/tag/v1.0.0) - First Release
 
 ## Getting Started
