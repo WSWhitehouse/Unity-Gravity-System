@@ -9,6 +9,7 @@
  [![Image](https://i.gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8.gif)](https://gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8)
 
 ## Releases
+-[**v1.1.0**](https://github.com/DoctorWolfy121/UnityCustomGravity/releases/tag/v1.1.0) - Major Bug Fixes
 - [**v1.0.0**](https://github.com/DoctorWolfy121/UnityCustomGravity/releases/tag/v1.0.0) - First Release
 
 ## Getting Started
@@ -24,8 +25,8 @@ These instructions will get you a copy of the project up and running on your loc
 Read [INSTALLING.md](https://github.com/DoctorWolfy121/UnityCustomGravity/blob/master/INSTALLING.md) for installing instructions.
 
 ## Known Issues
-1. If there are more than one gravity source at a time, the item might remove a current gravity source and not be affected.
-2. Change `OnTriggerEnter()` to `OnTriggerStay()` so it can update the gravity source.
+1. <s>If there are more than one gravity source at a time, the item might remove a current gravity source and not be affected.</s> - *Fixed in v1.1.0*
+2. <s>Change `OnTriggerEnter()` to `OnTriggerStay()` so it can update the gravity source.</s> - *Fixed in v1.1.0*
 3. Make the `CurrentGravitySource` a List so the item can be affected by multiple gravity sources at once, by calculating gravity strength and distance to gravity source.
 
 ## To Do
