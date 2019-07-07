@@ -33,6 +33,7 @@ Read [INSTALLING.md](INSTALLING.md) for installing instructions.
  - <s>Allow Gravity Items to be affected by multiple gravity sources</s> - *Completed in v2.0.0*
  - Add Rotate To Ground, where an item will always face upwards. - *WIP, estimated release v2.1.0*
  - Add Enable Gravity boolean that will enable and disable a Gravity Source - *WIP, estimated release v2.1.0*
+ - Create advanced documentation - *No estimated release*
 
 ## Built With
 
