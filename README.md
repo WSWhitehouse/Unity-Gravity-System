@@ -1,12 +1,12 @@
 # Unity Gravity System
  
- Unity Gravity System - Local customizable gravity for planets and platforms, like Super Mario Galaxy. **Now with 2D version & Directional Gravity!**
+ Unity Gravity System - Local customizable gravity for planets and platforms, like Super Mario Galaxy. **Now with 2D version & Directional Gravity!** 
  
- [![Image](https://i.gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca.gif)](https://gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca)
- 
- [![Image](https://i.gyazo.com/01b626b39834fd9a179a48c067901fcd.gif)](https://gyazo.com/01b626b39834fd9a179a48c067901fcd)
- 
- [![Image](https://i.gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8.gif)](https://gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8)
+<p align="center">
+<img src="https://i.gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca.gif" alt="Planet Gravity 3D">
+<img src="https://i.gyazo.com/01b626b39834fd9a179a48c067901fcd.gif" alt="Directional Gravity 3D">
+<img src="https://i.gyazo.com/ac2345c1cbb311ddbf6dfe97b19084d8.gif" alt="Planet Gravity 2D">
+</p>
 
 ## Releases
 For releases check the [releases on this repository](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases), for the latest release [click here](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases/latest)!
