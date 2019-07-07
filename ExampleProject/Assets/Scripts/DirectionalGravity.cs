@@ -11,6 +11,8 @@ namespace DoctorWolfy121.GravitySystem
 
         [SerializeField] private float gravityStrength = 9.8f;
 
+        [SerializeField] private bool enableGravity = true;
+
         [SerializeField, Space(5)] private bool enableDebug;
 
         public float GravityStrength => gravityStrength;
@@ -18,6 +20,8 @@ namespace DoctorWolfy121.GravitySystem
         public List<GravityItem> ItemsInRange { get; } = new List<GravityItem>();
 
         public Collider[] GravityColliders { get; private set; }
+
+        public bool EnableGravity => enableGravity;
 
         private const float MaxRaycastDistance = 100.0f;
 
@@ -59,6 +63,8 @@ namespace DoctorWolfy121.GravitySystem
 
         private void FixedUpdate()
         {
+            if (!EnableGravity) return;
+            
             // Iterate over each object within range of our gravity
             for (int i = 0; ItemsInRange != null && i < ItemsInRange.Count; ++i)
             {
