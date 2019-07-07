@@ -14,12 +14,16 @@ namespace DoctorWolfy121.GravitySystem
         [Tooltip("The maximum distance from the surface of the gravity source that is still affected by gravity")]
         public float radius = 5.0f;
 
+        [SerializeField] private bool enableGravity = true;
+
         [SerializeField, Space(5), Tooltip("Enable Debug rays and lines to help visualise the gravity.")]
         private bool enableDebug;
 
         public float GravityStrength => gravityStrength;
 
         public Collider2D[] GravityColliders { get; private set; }
+
+        public bool EnableGravity => enableGravity;
 
         private const float MaxRaycastDistance = 100.0f;
 
@@ -85,6 +89,8 @@ namespace DoctorWolfy121.GravitySystem
 
         private void FixedUpdate()
         {
+            if (!EnableGravity) return;
+            
             // Iterate over each object within range of our gravity
             for (int i = 0; ItemsInRange != null && i < ItemsInRange.Count; ++i)
             {

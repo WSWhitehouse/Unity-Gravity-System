@@ -13,6 +13,8 @@ namespace DoctorWolfy121.GravitySystem
          Tooltip("How much gravity force to apply to objects within range")]
         private float gravityStrength = 9.8f;
 
+        [SerializeField] private bool enableGravity = true;
+
         [SerializeField, Space(5), Tooltip("Enable Debug rays and lines to help visualise the gravity.")]
         private bool enableDebug;
 
@@ -21,6 +23,8 @@ namespace DoctorWolfy121.GravitySystem
         public Collider2D[] GravityColliders { get; private set; }
 
         public List<GravityItem2D> ItemsInRange { get; } = new List<GravityItem2D>();
+
+        public bool EnableGravity => enableGravity;
 
         private const float MaxRaycastDistance = 100.0f;
 
@@ -62,6 +66,8 @@ namespace DoctorWolfy121.GravitySystem
 
         private void FixedUpdate()
         {
+            if (!EnableGravity) return;
+
             // Iterate over each object within range of our gravity
             for (int i = 0; ItemsInRange != null && i < ItemsInRange.Count; ++i)
             {
@@ -145,7 +151,7 @@ namespace DoctorWolfy121.GravitySystem
                     }
 
                     item.Up = Vector2.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
-                    
+
                     if (item.RotateToGround)
                     {
                         item.transform.up = -gravityDir.normalized;
