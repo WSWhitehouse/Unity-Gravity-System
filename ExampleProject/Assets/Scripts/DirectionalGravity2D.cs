@@ -145,6 +145,11 @@ namespace DoctorWolfy121.GravitySystem
                     }
 
                     item.Up = Vector2.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
+                    
+                    if (item.RotateToGround)
+                    {
+                        item.transform.up = -gravityDir.normalized;
+                    }
 
                     // Calculate force
                     var force = gravityDir.normalized * GravityStrength;
