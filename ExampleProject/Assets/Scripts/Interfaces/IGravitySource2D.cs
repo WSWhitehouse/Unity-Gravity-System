@@ -8,5 +8,6 @@ namespace DoctorWolfy121.GravitySystem
         float GravityStrength { get; }
         List<GravityItem2D> ItemsInRange { get; }
         Collider2D[] GravityColliders { get; }
+        bool EnableGravity { get; }
     }
 }
