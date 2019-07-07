@@ -29,8 +29,10 @@ Read [INSTALLING.md](INSTALLING.md) for installing instructions.
 3. <s>Make the `CurrentGravitySource` a List so the item can be affected by multiple gravity sources at once, by calculating gravity strength and distance to gravity source.</s> - *Fixed in v2.0.0*
 
 ## To Do
- - <s>Create a 2D version</s> - *Done*
+ - <s>Create a 2D version</s> - *Completed in v1.0.0*
  - <s>Allow Gravity Items to be affected by multiple gravity sources</s> - *Completed in v2.0.0*
+ - Add Rotate To Ground, where an item will always face upwards. - *WIP, estimated release v2.1.0*
+ - Add Enable Gravity boolean that will enable and disable a Gravity Source - *WIP, estimated release v2.1.0*
 
 ## Built With
 
