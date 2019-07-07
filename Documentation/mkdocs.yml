@@ -1,1 +1,7 @@
-site_name: My Docs
+site_name: Unity Gravity System
+theme:
+  name: 'material'
+
+nav:
+  - Home: index.md
+  - Installing: installing.md
