@@ -218,6 +218,7 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
+  RotateToGround: 0
 --- !u!50 &367176084
 Rigidbody2D:
   serializedVersion: 4
@@ -458,6 +459,7 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
+  RotateToGround: 0
 --- !u!50 &670629398
 Rigidbody2D:
   serializedVersion: 4
@@ -602,6 +604,7 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
+  RotateToGround: 0
 --- !u!50 &676923981
 Rigidbody2D:
   serializedVersion: 4
@@ -746,6 +749,7 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
+  RotateToGround: 0
 --- !u!50 &708618740
 Rigidbody2D:
   serializedVersion: 4
@@ -890,6 +894,7 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
+  RotateToGround: 0
 --- !u!50 &1042216298
 Rigidbody2D:
   serializedVersion: 4
@@ -1034,6 +1039,7 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
+  RotateToGround: 0
 --- !u!50 &1596358191
 Rigidbody2D:
   serializedVersion: 4
@@ -1301,6 +1307,7 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
+  RotateToGround: 0
 --- !u!50 &1984790724
 Rigidbody2D:
   serializedVersion: 4
@@ -1445,6 +1452,7 @@ MonoBehaviour:
   Up: {x: 0, y: 1}
   ActiveFieldCount: 0
   CurrentDistance: Infinity
+  RotateToGround: 0
 --- !u!50 &2099935312
 Rigidbody2D:
   serializedVersion: 4
