@@ -1,6 +1,6 @@
 # Unity Gravity System
  
- Unity Gravity System - Local customizable gravity for planets and platforms, like Super Mario Galaxy. **Now with 2D version & Directional Gravity!** 
+ Unity Gravity System - Local customizable gravity for planets and platforms, like Super Mario Galaxy. Includes directional gravity and 2D versions.
  
 <p align="center">
 <img src="https://i.gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca.gif" alt="Planet Gravity 3D">
