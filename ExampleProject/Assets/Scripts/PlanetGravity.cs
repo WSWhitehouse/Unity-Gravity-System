@@ -12,8 +12,6 @@ namespace DoctorWolfy121.GravitySystem
         [SerializeField, Tooltip("How much gravity force to apply to objects within range")]
         private float gravityStrength = 9.8f;
 
-        [SerializeField] private bool enableGravity = true;
-
         public float radius = 5.0f;
 
         [SerializeField, Space(5), Tooltip("Enable Debug rays and lines to help visualise the gravity.")]
@@ -26,8 +24,6 @@ namespace DoctorWolfy121.GravitySystem
         public List<GravityItem> ItemsInRange { get; } = new List<GravityItem>();
 
         public Collider[] GravityColliders { get; private set; }
-
-        public bool EnableGravity => enableGravity;
 
         private void OnDrawGizmos()
         {
@@ -93,8 +89,6 @@ namespace DoctorWolfy121.GravitySystem
 
         private void FixedUpdate()
         {
-            if (!EnableGravity) return;
-            
             // Iterate over each object within range of our gravity
             for (int i = 0; ItemsInRange != null && i < ItemsInRange.Count; ++i)
             {
