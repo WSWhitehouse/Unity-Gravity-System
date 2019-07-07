@@ -28,10 +28,7 @@ namespace DoctorWolfy121.GravitySystem
         private void OnDrawGizmos()
         {
             if (!enableDebug) return;
-
-            if (Camera.current == null)
-                return;
-
+            
             // Visualize gravity radius 
             Gizmos.color = Color.magenta;
             for (int i = 0; GravityColliders != null && i < GravityColliders.Length; ++i)
