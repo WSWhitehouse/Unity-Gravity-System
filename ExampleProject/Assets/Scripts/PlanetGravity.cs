@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
@@ -164,6 +165,11 @@ namespace DoctorWolfy121.GravitySystem
 
                     item.Up = Vector3.Lerp(item.Up, -gravityDir.normalized, Time.deltaTime * 2.0f);
 
+                    if (item.RotateToGround)
+                    {
+                        item.transform.up = -gravityDir.normalized;
+                    }
+
                     // Calculate force
                     var force = gravityDir.normalized * GravityStrength;
                     var distRatio = Mathf.Clamp01(closestHit / radius);
@@ -174,5 +180,16 @@ namespace DoctorWolfy121.GravitySystem
                 }
             }
         }
+
+        /*private void Update()
+        {
+            foreach (var item in ItemsInRange)
+            {
+                if (item.RotateToGround)
+                {
+                    item.transform.rotation = Quaternion.Euler(-item.Up);
+                }
+            }
+        }*/
     }
 }
