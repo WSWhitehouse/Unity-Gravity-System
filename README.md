@@ -2,8 +2,6 @@
  
  Unity Gravity System  - Super Mario Galaxy style planet and directional gravity!
  
- ![GitHub](https://img.shields.io/github/license/DoctorWolfy121/Unity-Gravity-System.svg) ![GitHub top language](https://img.shields.io/github/languages/top/DoctorWolfy121/Unity-Gravity-System.svg) ![GitHub repo size](https://img.shields.io/github/repo-size/DoctorWolfy121/Unity-Gravity-System.svg) ![GitHub release](https://img.shields.io/github/release/DoctorWolfy121/Unity-Gravity-System.svg)
- 
 <p align="center">
 <img src="https://i.gyazo.com/bc64b11dd1f73dc6bbb21a188de3cbca.gif" alt="Planet Gravity 3D">
 <img src="https://i.gyazo.com/01b626b39834fd9a179a48c067901fcd.gif" alt="Directional Gravity 3D">
