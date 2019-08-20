@@ -9,7 +9,7 @@
 </p>
 
 ## Releases
-For releases check the [releases on this repository](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases), for the latest release [click here](https://github.com/DoctorWolfy121/Unity-Gravity-System/releases/latest)!
+For releases check the [releases on this repository](https://github.com/WSWhitehouse/Unity-Gravity-System/releases), for the latest release [click here](https://github.com/WSWhitehouse/Unity-Gravity-System/releases/latest)!
 
 ## Getting Started
 
@@ -42,12 +42,12 @@ Read [INSTALLING.md](INSTALLING.md) for installing instructions.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/DoctorWolfy121/Unity-Gravity-System/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/WSWhitehouse/Unity-Gravity-System/tags). 
 
 ## Authors & Contributors
 
 - **David Evans** - [*Initial work*](https://gist.github.com/phosphoer/a283cdbeca5d2160d5eed318d0362826) - [Phosphoer](https://github.com/phosphoer)
-- **William Whitehouse** - *Examples, install instructions, bug fixes, code improvements/additions & 2D version* - [DoctorWolfy121](https://github.com/DoctorWolfy121)
+- **William Whitehouse** - *Examples, install instructions, bug fixes, code improvements/additions & 2D version* - [WSWhitehouse](https://github.com/WSWhitehouse)
 
 ## Acknowledgments
 
